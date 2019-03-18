@@ -31,7 +31,7 @@ public class GameView extends View {
     Rect rect;
 
     int bgXPos, bgYPos;
-
+    int groundPos;
 
     Bitmap[] playerAnim;
     int playerFrame;
@@ -57,6 +57,7 @@ public class GameView extends View {
         //background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
         bg = new BackgroundLoop(BitmapFactory.decodeResource(getResources(), R.drawable.bg));
         bg.SetVector(-5);
+
         //thread.setRunning(true);
         //thread.Start();
 
@@ -71,8 +72,10 @@ public class GameView extends View {
         playerAnim[0] = BitmapFactory.decodeResource(getResources(), R.drawable.graphic);
         playerAnim[1] = BitmapFactory.decodeResource(getResources(), R.drawable.graphic2);
 
+        groundPos = (deviceHeight / 3) * 2;
+
         playerXPos = deviceWidth/2 - playerAnim[0].getWidth()/2;        //Center of the screen
-        playerYPos = deviceHeight/2 - playerAnim[0].getHeight()/2;      //(The inital position of
+        playerYPos = groundPos - playerAnim[0].getHeight()/2;           //(The inital position of
                                                                         //the player)
 }
 
@@ -101,9 +104,8 @@ public class GameView extends View {
             playerFrame = 0;
         }
 
-        //Player is kept inside the screen
-        //HUOM HUOM tän vois tehä silleen että pelaaja tippuu aina tiettyyn kohtaan (maahan)
-        if(playerYPos < deviceHeight / 2 - playerAnim[0].getHeight() || speed < 0)
+        //Player is kept inside the screen and doesn't fall further than the ground
+        if(playerYPos < groundPos - playerAnim[0].getHeight() || speed < 0)
         {
             speed += gravity;
             playerYPos += speed;
