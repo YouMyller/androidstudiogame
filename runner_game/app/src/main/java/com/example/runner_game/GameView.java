@@ -2,6 +2,7 @@ package com.example.runner_game;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,8 +13,13 @@ import android.support.annotation.MainThread;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.widget.ImageView;
+
+import java.io.File;
 
 public class GameView extends View {
 
