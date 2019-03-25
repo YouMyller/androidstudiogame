@@ -8,8 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.support.annotation.MainThread;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.os.Handler;
 
@@ -19,11 +21,17 @@ public class GameView extends View {
     Runnable runnable;
     final int updateMilliSeconds = 30;
 
-    Bitmap background;
+    MainThread thread;
+    //Bitmap background;
+    BackgroundLoop bg;
     Display display;
     Point point;
-    int deviceWidth, deviceHeight;
+    public int deviceWidth;
+    public int deviceHeight;
     Rect rect;
+
+    int bgXPos, bgYPos;
+    int groundPos;
 
     Bitmap[] playerAnim;
     int playerFrame;
@@ -46,7 +54,12 @@ public class GameView extends View {
             }
         };
 
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        //background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        bg = new BackgroundLoop(BitmapFactory.decodeResource(getResources(), R.drawable.bg));
+        bg.SetVector(-5);
+
+        //thread.setRunning(true);
+        //thread.Start();
 
         display = ((Activity)getContext()).getWindowManager().getDefaultDisplay();
         point = new Point();
@@ -59,8 +72,10 @@ public class GameView extends View {
         playerAnim[0] = BitmapFactory.decodeResource(getResources(), R.drawable.graphic);
         playerAnim[1] = BitmapFactory.decodeResource(getResources(), R.drawable.graphic2);
 
+        groundPos = (deviceHeight / 3) * 2;
+
         playerXPos = deviceWidth/2 - playerAnim[0].getWidth()/2;        //Center of the screen
-        playerYPos = deviceHeight/2 - playerAnim[0].getHeight()/2;      //(The inital position of
+        playerYPos = groundPos - playerAnim[0].getHeight()/2;           //(The inital position of
                                                                         //the player)
 }
 
@@ -69,7 +84,16 @@ public class GameView extends View {
     {
         super.onDraw(canvas);
 
-        canvas.drawBitmap(background, null, rect, null);
+        final float scaleFactorX = (float)getWidth()/(float)deviceWidth;
+        final float scaleFactorY = (float)getHeight()/(float)deviceHeight;
+
+        if(canvas != null)
+        {
+            final int savedState = canvas.save();
+            canvas.scale(scaleFactorX, scaleFactorY);
+            bg.Draw(canvas, this);
+            canvas.restoreToCount(savedState);
+        }
 
         if(playerFrame == 0)
         {
@@ -80,8 +104,8 @@ public class GameView extends View {
             playerFrame = 0;
         }
 
-        //Player is kept inside the screen
-        if(playerYPos < deviceHeight - playerAnim[0].getHeight() || speed < 0)
+        //Player is kept inside the screen and doesn't fall further than the ground
+        if(playerYPos < groundPos - playerAnim[0].getHeight() || speed < 0)
         {
             speed += gravity;
             playerYPos += speed;

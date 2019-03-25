@@ -9,9 +9,9 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="218dp"
-        android:layout_height="346dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:background="@drawable/button"
-        android:onClick="StartGame"
-        android:src="@drawable/button" />
+        android:onClick="startGame" />
 </RelativeLayout>
