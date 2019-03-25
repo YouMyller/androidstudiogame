@@ -26,4 +26,13 @@
         android:layout_height="match_parent">
 
     </FrameLayout>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Meters: 100"
+        android:textSize="18sp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"/>
+
 </RelativeLayout>

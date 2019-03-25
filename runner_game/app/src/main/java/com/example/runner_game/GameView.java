@@ -47,6 +47,13 @@ public class GameView extends View {
 
     float playerXPos, playerYPos;
 
+    private TextView scoreLabel;
+
+    //Score = how many meters player has traveled
+    private int score = 0;
+
+    private boolean scoreRunning;
+
     public GameView(Context context)
     {
         super(context);
@@ -83,6 +90,8 @@ public class GameView extends View {
         playerXPos = deviceWidth/2 - playerAnim[0].getWidth()/2;        //Center of the screen
         playerYPos = groundPos - playerAnim[0].getHeight()/2;           //(The inital position of
                                                                         //the player)
+
+        scoreLabel.setText("Score : 0");
 }
 
     @Override
@@ -120,6 +129,12 @@ public class GameView extends View {
         canvas.drawBitmap(playerAnim[playerFrame], playerXPos, playerYPos, null);
 
         handler.postDelayed(runnable, updateMilliSeconds);
+
+        if (scoreRunning)
+        {
+            score += 1;
+            scoreLabel.setText("Score : " + score);
+        }
     }
 
     @Override
