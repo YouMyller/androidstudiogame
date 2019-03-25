@@ -14,4 +14,16 @@
         android:layout_centerInParent="true"
         android:background="@drawable/button"
         android:onClick="startGame" />
+
+    <ImageView
+        android:layout_width = "196dp"
+        android:layout_height = "226dp"
+        android:id = "@+id/image"/>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 </RelativeLayout>
