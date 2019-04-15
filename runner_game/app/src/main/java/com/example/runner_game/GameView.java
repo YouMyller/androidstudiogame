@@ -23,6 +23,8 @@ import java.io.File;
 
 public class GameView extends View {
 
+    //https://stackoverflow.com/questions/25791256/libgdx-show-score-and-add-1-to-score-every-second
+
     Handler handler;        //Needed for scheduling the Runnable
     Runnable runnable;
     final int updateMilliSeconds = 30;
@@ -53,6 +55,8 @@ public class GameView extends View {
     private int score = 0;
 
     private boolean scoreRunning;
+
+    private float timeState=0f;
 
     public GameView(Context context)
     {
@@ -130,6 +134,17 @@ public class GameView extends View {
 
         handler.postDelayed(runnable, updateMilliSeconds);
 
+        timeState += Gdx.graphics.getDeltaTime();
+        if (timeState >= 1f)
+        {
+            // 1 second just passed
+            timeState = 0f; // reset our timer
+            AddScore(); // call the function that you want
+        }
+    }
+
+    public void AddScore()
+    {
         if (scoreRunning)
         {
             score += 1;
