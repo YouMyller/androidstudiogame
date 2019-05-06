@@ -3,17 +3,21 @@ package com.example.runner_game;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.telecom.Conference;
+import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.hardware.Camera;
+import android.view.WindowManager;
+
+
+import java.util.List;
 
 public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback {
 
     Camera camera;
     SurfaceHolder holder;
 
-    public ShowCamera (Context context, Camera camera)
-    {
+    public ShowCamera(Context context, Camera camera) {
         super(context);
         this.camera = camera;
         holder = getHolder();
@@ -21,18 +25,14 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder)
-    {
+    public void surfaceCreated(SurfaceHolder holder) {
         Camera.Parameters params = camera.getParameters();
 
-        if(this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE)
-        {
+        if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
             params.set("orientation", "portrait");
             camera.setDisplayOrientation(90);
             params.setRotation(90);
-        }
-        else
-        {
+        } else {
             params.set("orientation", "landscape");
             camera.setDisplayOrientation(0);
             params.setRotation(0);
@@ -45,8 +45,7 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback {
             camera.setPreviewDisplay(holder);
             camera.startPreview();
         }
-        catch(Exception e)
-        {
+        catch (Exception e) {
             //Kakka
         }
     }
