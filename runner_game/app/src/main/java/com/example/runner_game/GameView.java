@@ -49,7 +49,7 @@ public class GameView extends View {
 
     float playerXPos, playerYPos;
 
-    //private TextView scoreLabel;
+    private TextView scoreLabel;
 
     //Score = how many meters player has traveled
     private int score = 0;
@@ -74,6 +74,10 @@ public class GameView extends View {
         //background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
         bg = new BackgroundLoop(BitmapFactory.decodeResource(getResources(), R.drawable.bg));
         bg.SetVector(-5);
+
+        //scoreLabel = (TextView) ((Activity)context).findViewById(R.id.text);
+        scoreLabel = (TextView)findViewById(R.id.textView);
+
 
         //thread.setRunning(true);
         //thread.Start();
@@ -148,7 +152,7 @@ public class GameView extends View {
         if (scoreRunning)
         {
             score += 1;
-            //scoreLabel.setText("Score : " + score);
+            scoreLabel.setText("Score : " + score);
         }
     }
 
