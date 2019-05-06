@@ -49,7 +49,7 @@ public class GameView extends View {
 
     float playerXPos, playerYPos;
 
-    private TextView scoreLabel;
+    //private TextView scoreLabel;
 
     //Score = how many meters player has traveled
     private int score = 0;
@@ -83,7 +83,7 @@ public class GameView extends View {
         display.getSize(point);
         deviceWidth = point.x;
         deviceHeight = point.y;
-        rect = new Rect(0,0,deviceWidth, deviceHeight);
+        //rect = new Rect(0,0,deviceWidth, deviceHeight);
 
         playerAnim = new Bitmap[2];
         playerAnim[0] = BitmapFactory.decodeResource(getResources(), R.drawable.graphic);
@@ -95,7 +95,7 @@ public class GameView extends View {
         playerYPos = groundPos - playerAnim[0].getHeight()/2;           //(The inital position of
                                                                         //the player)
 
-        scoreLabel.setText("Score : 0");
+        //scoreLabel.setText("Score : 0");
 }
 
     @Override
@@ -148,7 +148,7 @@ public class GameView extends View {
         if (scoreRunning)
         {
             score += 1;
-            scoreLabel.setText("Score : " + score);
+            //scoreLabel.setText("Score : " + score);
         }
     }
 
